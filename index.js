@@ -41,7 +41,6 @@ class tableGenerator {
                 this.mapTable[y][x] = element;
             }
         }
-        console.log(this.mapTable)
     }
 
     tableGenerate() {
@@ -74,8 +73,8 @@ class tableGenerator {
                 if (this.mapTable[y][x].noRendering) {
                     continue;
                 }
-                (this.mapTable[y][x].colSpan || this.mapTable[y][x].colSpan !== 1) && td.setAttribute('colSpan', this.mapTable[y][x].colSpan);
-                (this.mapTable[y][x].rowSpan || this.mapTable[y][x].rowSpan !== 1) && td.setAttribute('rowSpan', this.mapTable[y][x].rowSpan);
+                (this.mapTable[y][x].colSpan && this.mapTable[y][x].colSpan !== 1) && td.setAttribute('colSpan', this.mapTable[y][x].colSpan);
+                (this.mapTable[y][x].rowSpan && this.mapTable[y][x].rowSpan !== 1) && td.setAttribute('rowSpan', this.mapTable[y][x].rowSpan);
                 td.innerHTML = this.text && this.text + x + ' ' + y;
                 let [sX, sY, fX, fY] = [0, 0, 0, 0];
                 td.onmousedown = e => {
@@ -149,6 +148,10 @@ class tableGenerator {
                 }
             }
         }
+    }
+    reset() {
+        this.mapTableGenerate();
+        this.tableGenerate();
     }
 
     del(X, Y) {
@@ -225,4 +228,7 @@ let copy = document.querySelector('#copy');
 copy.onclick = e => {
     navigator.clipboard.writeText(t.table.outerHTML);
 }
+document.querySelector('#reset').addEventListener('click', e => {
+    t.reset()
+});
 window.addEventListener('contextmenu', (e) => e.preventDefault());
