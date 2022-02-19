@@ -1,0 +1,17 @@
+#container {
+    margin: 25px auto;
+    font: 1rem "Comic Sans MS";
+    border: #00acaf solid 2px;
+    user-select: none;
+}
+#container tbody tr td {
+    padding: 10px;
+    border: #00acaf solid 2px;
+    user-select: none;
+}
+#container tbody tr td:hover {
+    border: #00fcff solid 2px;
+}
+.selected {
+    border: #c2fdff;
+}

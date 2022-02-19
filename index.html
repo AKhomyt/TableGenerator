@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="stylesheet.css" rel="stylesheet"/>
+    <script src='index.js' type="module" defer></script>
+</head>
+<body>
+<div id="panel">
+    <fieldset>
+        <legend>Size</legend>
+        <input id="x" type="text" size="1" name="x"/>
+        X
+        <input id="y" type="text" size="1"/>
+        Text: <input id="text" type="text" size="15"/>
+    </fieldset>
+    <fieldset>
+        <legend>Class name of elements</legend>
+        tr <input id="cNTr" type="text" size="25"/>
+        td <input id="cNTd" type="text" size="25"/>
+    </fieldset>
+    <fieldset>
+        <legend>Id name of elements</legend>
+        tr <input id="idNTr" type="text" size="25"/>
+        td <input id="idNTd" type="text" size="25"/>
+    </fieldset>
+    <input id="copy" type="button" value="Copy"/>
+</div>
+<div id="errors">|</div>
+<table id="container"/>
+
+</body>
+</html>
