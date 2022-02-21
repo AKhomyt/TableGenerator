@@ -2,7 +2,7 @@
     background: #000;
     color: #fff;
 }
-div {
+div, input[type='button'] {
     width: max-content;
     height: max-content;
     margin: 10px auto;
@@ -10,16 +10,24 @@ div {
     background: #004b4c;
     border: #00acaf solid 2px;
     color: white;
-    font: 1rem "Comic Sans MS";
+    font: 1rem "Arial";
+    border-radius: 9px;
+}
+input[type='button']:hover {
+    background: #00fbff;
+    color: #000;
 }
 #container {
     margin: 25px auto;
-    font: 1rem "Comic Sans MS";
+    font: .7rem "Comic Sans MS";
     border: #00acaf solid 2px;
     user-select: none;
 }
 #container tbody tr td {
+    text-align: center;
     padding: 10px;
+    width: max-content;
+    height: max-content;
     border: #00acaf solid 2px;
     user-select: none;
 }
