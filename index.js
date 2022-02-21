@@ -1,10 +1,8 @@
 'use strict'
-let map = 9;
-
 class tableGenerator {
     constructor(container) {
-        this.x = '';
-        this.y = '';
+        this.x = 0;
+        this.y = 0;
         this.cNTr = '';
         this.cNTd = '';
         this.trId = '';
@@ -29,7 +27,7 @@ class tableGenerator {
 
     mapTableGenerate() {
         if (!this.x || !this.y) return;
-        this.mapTable = new Array(y);
+        this.mapTable = new Array(this.y);
         let element = {
             rowSpan: undefined,
             colSpan: undefined,
@@ -76,12 +74,15 @@ class tableGenerator {
                 (this.mapTable[y][x].colSpan && this.mapTable[y][x].colSpan !== 1) && td.setAttribute('colSpan', this.mapTable[y][x].colSpan);
                 (this.mapTable[y][x].rowSpan && this.mapTable[y][x].rowSpan !== 1) && td.setAttribute('rowSpan', this.mapTable[y][x].rowSpan);
                 td.innerHTML = this.text && this.text + x + ' ' + y;
-                let [sX, sY, fX, fY] = [0, 0, 0, 0];
                 td.onmousedown = e => {
+                    e.preventDefault();
+                    if(e.button !== 0) return;
                     this.sX = x;
                     this.sY = y;
                 }
                 td.onmouseup = e => {
+                    e.preventDefault();
+                    if(e.button !== 0) return;
                     this.fX = x;
                     this.fY = y;
                     if (this.sX > this.fX && this.sY <= this.fY) {
@@ -109,10 +110,13 @@ class tableGenerator {
                     }
                 }
                 td.onmouseover = (e) => {
+                    e.preventDefault();
                     this.delX = x;
                     this.delY = y;
                 }
                 td.oncontextmenu = (e) => {
+                    e.preventDefault();
+                    if(e.button !== 2) return;
                     this.del(this.delX, this.delY);
                     this.tableGenerate();
                 }
@@ -121,7 +125,7 @@ class tableGenerator {
             tr.children.length > 0 && content.appendChild(tr);
         }
         this.container.innerHTML = '';
-        this.container.appendChild(content);
+        this.container.appendChild(document.createDocumentFragment().appendChild(content));
         this.table = this.container;
     }
 
@@ -161,6 +165,8 @@ class tableGenerator {
                     this.mapTable[y][x].noRendering.x === X &&
                     this.mapTable[y][x].noRendering.y === Y ||
                     (x === X && y === Y)) {
+                    this.mapTable[y][x].colSpan = undefined;
+                    this.mapTable[y][x].rowSpan = undefined;
                     this.mapTable[y][x].noRendering = undefined;
                 }
             }
@@ -171,28 +177,28 @@ class tableGenerator {
 let t = new tableGenerator('#container');
 let panel = document.querySelector('#panel');
 panel.oninput = e => {
-    var value = e.target.value;
-    var errors = text => {
+    let value = e.target.value;
+    let errors = text => {
         document.querySelector('#errors').innerHTML = text;
     }
     switch (e.target.getAttribute('id')) {
         case 'x': {
             if (isNaN(value)) {
-                errors('X должен быть числом.');
+                errors('X must be a number.');
                 break;
             } else {
                 t.x = value;
-                errors('|');
+                errors('Left Mouse Button: Merge, Right mouse button: Delete');
                 break;
             }
         }
         case 'y': {
             if (isNaN(value)) {
-                errors('Y должен быть числом.');
+                errors('Y must be a number.');
                 break;
             } else {
                 t.y = value;
-                errors('|');
+                errors('Left Mouse Button: Merge, Right mouse button: Delete');
                 break;
             }
         }
@@ -225,10 +231,10 @@ panel.oninput = e => {
     t.tableGenerate();
 }
 let copy = document.querySelector('#copy');
-copy.onclick = e => {
-    navigator.clipboard.writeText(t.table.outerHTML);
+copy.onclick = () => {
+    navigator.clipboard.writeText(t.table.outerHTML).then(()=> {});
 }
-document.querySelector('#reset').addEventListener('click', e => {
+document.querySelector('#reset').addEventListener('click', () => {
     t.reset()
 });
 window.addEventListener('contextmenu', (e) => e.preventDefault());

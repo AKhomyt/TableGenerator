@@ -1,3 +1,17 @@
+*::selection {
+    background: #000;
+    color: #fff;
+}
+div {
+    width: max-content;
+    height: max-content;
+    margin: 10px auto;
+    padding: 9px;
+    background: #004b4c;
+    border: #00acaf solid 2px;
+    color: white;
+    font: 1rem "Comic Sans MS";
+}
 #container {
     margin: 25px auto;
     font: 1rem "Comic Sans MS";
@@ -11,7 +25,4 @@
 }
 #container tbody tr td:hover {
     border: #00fcff solid 2px;
-}
-.selected {
-    border: #c2fdff;
 }
